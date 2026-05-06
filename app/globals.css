@@ -1,0 +1,242 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* GeoLegal Design System - Clean White Theme */
+  --background: #FFFFFF;
+  --background-surface: #F7F5F2;
+  --background-card: #FFFFFF;
+  --background-elevated: #F0EDE8;
+
+  /* Accent Colors — warm brown + cool blue */
+  --accent-brown: #6B3A1F;
+  --accent-brown-light: #8C5230;
+  --accent-brown-muted: #B07D5A;
+  --accent-blue: #1A3A72;
+  --accent-blue-light: #2B52A0;
+  --accent-blue-muted: #5B7EC4;
+  --accent-saffron: #C96A0C;
+
+  /* Text Colors */
+  --text-primary: #1C1410;
+  --text-secondary: #4A3B2C;
+  --text-muted: #8C7E6E;
+  --text-brown: #6B3A1F;
+  --text-blue: #1A3A72;
+
+  /* Border Colors */
+  --border-subtle: #E8E2DA;
+  --border-brown: rgba(107, 58, 31, 0.18);
+  --border-blue: rgba(26, 58, 114, 0.14);
+
+  /* Status Colors */
+  --success: #1A5C3A;
+  --warning: #8B5E1A;
+  --error: #7A1515;
+
+  /* Tailwind Overrides */
+  --foreground: #1C1410;
+  --card: #FFFFFF;
+  --card-foreground: #1C1410;
+  --popover: #FFFFFF;
+  --popover-foreground: #1C1410;
+  --primary: #1A3A72;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F7F5F2;
+  --secondary-foreground: #1C1410;
+  --muted: #E8E2DA;
+  --muted-foreground: #4A3B2C;
+  --accent: #6B3A1F;
+  --accent-foreground: #FFFFFF;
+  --destructive: #7A1515;
+  --destructive-foreground: #FFFFFF;
+  --border: #E8E2DA;
+  --input: #F7F5F2;
+  --ring: #2B52A0;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-body: var(--font-poppins);
+  --font-display: var(--font-poppins);
+  --font-serif: var(--font-poppins);
+  --font-mono: var(--font-jetbrains);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply text-foreground font-body;
+    background: #FFFFFF;
+    background-image:
+      radial-gradient(ellipse at 10% 0%, rgba(26, 58, 114, 0.05) 0%, transparent 55%),
+      radial-gradient(ellipse at 90% 100%, rgba(107, 58, 31, 0.05) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0) 0%, transparent 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    line-height: 1.18;
+  }
+}
+
+/* ─── Heading gradient: brown → blue ─── */
+.heading-gradient {
+  background: linear-gradient(135deg, #6B3A1F 0%, #8C5230 25%, #2B52A0 65%, #1A3A72 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-bottom: 0.08em;
+}
+
+/* Reversed variant: blue → brown */
+.heading-gradient-reverse {
+  background: linear-gradient(135deg, #1A3A72 0%, #2B52A0 35%, #8C5230 75%, #6B3A1F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-bottom: 0.08em;
+}
+
+/* Subtle inline text gradient for body-level accents */
+.text-gradient {
+  background: linear-gradient(90deg, #6B3A1F 0%, #2B52A0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding-bottom: 0.08em;
+}
+
+/* ─── Custom Animations ─── */
+@keyframes shimmer {
+  0%   { background-position: -1000px 0; }
+  100% { background-position:  1000px 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes float {
+  0%,  100% { transform: translateY(0px);  }
+  50%        { transform: translateY(-6px); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-shimmer  { animation: shimmer 2s infinite; }
+.animate-fade-up  { animation: fadeUp  0.6s ease-out forwards; }
+.animate-float    { animation: float   4s ease-in-out infinite; }
+
+/* ─── Utilities ─── */
+
+/* Blue glow for primary elements */
+.blue-glow {
+  box-shadow: 0 0 40px rgba(26, 58, 114, 0.12);
+}
+.blue-glow-hover:hover {
+  box-shadow: 0 0 40px rgba(26, 58, 114, 0.2);
+}
+
+/* Brown glow for accent elements */
+.brown-glow {
+  box-shadow: 0 0 40px rgba(107, 58, 31, 0.12);
+}
+.brown-glow-hover:hover {
+  box-shadow: 0 0 40px rgba(107, 58, 31, 0.2);
+}
+
+/* Clean glassmorphism on white */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(107, 58, 31, 0.1);
+}
+
+/* Gradient border — brown-to-blue */
+.gradient-border {
+  border: 1.5px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(135deg, #6B3A1F, #2B52A0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.card-shadow {
+  box-shadow:
+    0 4px 24px rgba(26, 58, 114, 0.07),
+    0 1px 4px  rgba(107, 58, 31, 0.05);
+}
+
+.card-shadow-hover {
+  box-shadow:
+    0 8px 48px rgba(26, 58, 114, 0.13),
+    0 2px 8px  rgba(107, 58, 31, 0.09);
+}
+
+.text-balance { text-wrap: balance; }
+.text-pretty  { text-wrap: pretty;  }
+
+/* ─── Scrollbar Styling ─── */
+::-webkit-scrollbar        { width: 8px; height: 8px; }
+::-webkit-scrollbar-track  { background: var(--background-surface); }
+::-webkit-scrollbar-thumb  {
+  background: linear-gradient(180deg, var(--accent-brown-muted), var(--accent-blue-muted));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--accent-brown), var(--accent-blue));
+}
