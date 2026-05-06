@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation' // Added usePathname
+import Link from 'next/link' // Added Link component
 import { Menu, X, Scale, ChevronDown, MessageSquare, LogOut, User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -22,6 +23,7 @@ export default function Navbar() {
 
   const { user, logout, isLoading } = useAuth()
   const router = useRouter()
+  const pathname = usePathname() // Track current route
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -29,11 +31,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Modified navLinks to handle internal page routing
   const navLinks = [
-    { label: 'IPC Reference', href: '#ipc-reference' },
+    { label: 'IPC Reference', href: pathname === '/' ? '#ipc-reference' : '/#ipc-reference' },
     { label: 'Penal Repo', href: 'https://www.indiacode.nic.in/', external: true },
-    { label: 'Legal Dictionary', href: '#legal-dictionary' },
-    { label: 'About', href: '#about' },
+    { label: 'Legal Dictionary', href: '/legal-dictionary' }, // Now points to the new page
+    { label: 'About', href: pathname === '/' ? '#about' : '/#about' },
   ]
 
   const handleLogout = () => {
@@ -53,7 +56,7 @@ export default function Navbar() {
         <div className="px-6 py-4 lg:px-12">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3">
               <div className="relative">
                 <Scale className="w-7 h-7 text-amber-800" strokeWidth={1.5} />
                 <div className="absolute inset-0 blur-md bg-amber-700/15 rounded-full" />
@@ -61,20 +64,24 @@ export default function Navbar() {
               <span className="text-2xl font-display font-bold heading-gradient">
                 GeoLegal
               </span>
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-10">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="text-sm font-medium text-stone-600 hover:text-amber-900 transition-colors duration-200 relative group"
+                  className={`text-sm font-medium transition-colors duration-200 relative group ${
+                    pathname === link.href ? 'text-amber-900' : 'text-stone-600 hover:text-amber-900'
+                  }`}
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-amber-800 group-hover:w-full transition-all duration-300" />
-                </a>
+                  <span className={`absolute -bottom-1 left-0 h-px bg-amber-800 transition-all duration-300 ${
+                    pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`} />
+                </Link>
               ))}
             </div>
 
@@ -142,7 +149,7 @@ export default function Navbar() {
           {isOpen && (
             <div className="lg:hidden mt-2 pb-6 border-t border-stone-200 pt-6 space-y-4 bg-white/95 rounded-xl px-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.label}
                   href={link.href}
                   {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
@@ -150,7 +157,7 @@ export default function Navbar() {
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
               {user ? (
                 <div className="space-y-2 pt-2">
