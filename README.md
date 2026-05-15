@@ -34,7 +34,6 @@ GeoLegal** is an AI legal awareness chatbot that tells you exactly what is legal
 
 ### 🤖 AI Legal Chat
 - Powered by **GPT-4o** with real-time voice using **WebRTC full-duplex**
-- Answers grounded in verified state-specific legal documents
 - **22 Indian languages** — Hindi, Bengali, Hinglish, Telugu, Marathi, Tamil, and more
 - Auto-detects user language and responds accordingly
 
